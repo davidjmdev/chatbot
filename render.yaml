@@ -3,6 +3,7 @@ services:
     name: django-rasa-chatbot
     runtime: python
     plan: free
+    region: frankfurt  # Región de Frankfurt para mejor rendimiento en Europa
     buildCommand: pip install -r requirements.txt
     startCommand: bash start_services.sh
     envVars:
