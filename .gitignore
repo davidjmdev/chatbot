@@ -1,28 +1,10 @@
-# Entornos virtuales
-.venv/
-venv/
-env/
-ENV/
-.env
-
-# Archivos específicos de macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-._*
-
-# Carpetas y archivos de Rasa
-.rasa/
-models/
-results/
-rasa.db
-
-# Archivos y carpetas de Python
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+env/
 build/
 develop-eggs/
 dist/
@@ -38,17 +20,48 @@ var/
 .installed.cfg
 *.egg
 
-# Archivos de Django
+# Django
 *.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media/
-static/collected/
+media
 
-# Archivos de IDE y editores
-.idea/
+# Rasa
+models/
+.rasa/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# VS Code
 .vscode/
+
+# PyCharm
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# dotenv
+.env
+
+# Otros
+.DS_Store
+.temp/
+
+# Archivos específicos de macOS
+.AppleDouble
+.LSOverride
+._*
+
+# Carpetas y archivos de Rasa
+results/
+rasa.db
+
+# Archivos y carpetas de Python
 *.swp
 *.swo
 *~

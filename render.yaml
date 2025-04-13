@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: django-rasa-chatbot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash start_services.sh
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: 3.9.18
+      - key: RASA_HOST
+        value: localhost  # Como ambos servicios están en la misma instancia
+      - key: RASA_PORT
+        value: 5005
+      - key: ACTIONS_PORT
+        value: 5055
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com,localhost,127.0.0.1" 

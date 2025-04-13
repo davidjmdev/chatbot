@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 import json
 import requests
 import logging
@@ -25,8 +26,8 @@ def send_message(request):
             data = json.loads(request.body)
             user_message = data.get('message', '')
             
-            # Conexión con el servidor Rasa
-            rasa_url = "http://localhost:5005/webhooks/rest/webhook"
+            # Usar la URL de Rasa desde la configuración
+            rasa_url = settings.RASA_URL
             rasa_payload = {
                 "sender": "user",
                 "message": user_message
@@ -37,13 +38,13 @@ def send_message(request):
                 rasa_response = requests.post(rasa_url, json=rasa_payload, timeout=5)
                 rasa_data = rasa_response.json()
             except requests.exceptions.Timeout:
-                logger.warning("Timeout al conectar con Rasa")
+                logger.warning(f"Timeout al conectar con Rasa en {rasa_url}")
                 return JsonResponse({
                     'status': 'success',
                     'messages': []
                 })
             except requests.exceptions.ConnectionError:
-                logger.warning("No se pudo conectar con el servidor Rasa")
+                logger.warning(f"No se pudo conectar con el servidor Rasa en {rasa_url}")
                 return JsonResponse({
                     'status': 'success', 
                     'messages': []

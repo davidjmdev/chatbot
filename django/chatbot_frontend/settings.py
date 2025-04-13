@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hzkric+)ar(*%b=*3s5t5$%_2a#7z5(ts3-bjls7k$kw+(-%$9'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-hzkric+)ar(*%b=*3s5t5$%_2a#7z5(ts3-bjls7k$kw+(-%$9')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+if 'RENDER_EXTERNAL_HOSTNAME' in os.environ:
+    ALLOWED_HOSTS.extend([os.environ.get('RENDER_EXTERNAL_HOSTNAME')])
+
+# Configuración para el servidor Rasa
+RASA_HOST = os.environ.get('RASA_HOST', 'localhost')
+RASA_PORT = os.environ.get('RASA_PORT', '5005')
+RASA_URL = f"http://{RASA_HOST}:{RASA_PORT}/webhooks/rest/webhook"
 
 
 # Application definition
