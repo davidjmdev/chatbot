@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Frontend</title>
+    <link rel="stylesheet" href="{% static 'chat/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    {% csrf_token %}
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chatbot Asistente</h1>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Se eliminó el mensaje de bienvenida inicial -->
+        </div>
+        <div class="chat-input-container">
+            <input type="text" id="user-input" placeholder="Escribe tu mensaje aquí..." class="chat-input">
+            <button id="send-button" class="send-button">Enviar</button>
+        </div>
+    </div>
+    <script src="{% static 'chat/js/chat.js' %}"></script>
+</body>
+</html> 

@@ -1,0 +1,70 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Archivos específicos de macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Carpetas y archivos de Rasa
+.rasa/
+models/
+results/
+rasa.db
+
+# Archivos y carpetas de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+static/collected/
+
+# Archivos de IDE y editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.vs/
+.project
+.pydevproject
+.settings/
+
+# Archivos de entorno y configuración
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos temporales
+tmp/
+temp/
+.tmp/
+.temp/
