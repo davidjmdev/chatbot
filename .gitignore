@@ -1,83 +1,17 @@
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Django
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media
 
 # Rasa
-models/
 .rasa/
 
 # Virtual Environment
 .venv/
+.env/
 venv/
 ENV/
-
-# VS Code
-.vscode/
-
-# PyCharm
-.idea/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# dotenv
-.env
 
 # Otros
 .DS_Store
 .temp/
-
-# Archivos específicos de macOS
 .AppleDouble
 .LSOverride
-._*
-
-# Carpetas y archivos de Rasa
-results/
-rasa.db
-
-# Archivos y carpetas de Python
-*.swp
-*.swo
-*~
-.vs/
-.project
-.pydevproject
-.settings/
-
-# Archivos de entorno y configuración
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Archivos temporales
-tmp/
-temp/
-.tmp/
-.temp/
