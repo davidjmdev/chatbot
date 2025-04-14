@@ -23,6 +23,9 @@ RUN pip install --upgrade pip && \
 # Copiar el resto del código del proyecto
 COPY . .
 
+# Ejecutar collectstatic para archivos estáticos de Django
+RUN python django/manage.py collectstatic --noinput
+
 # Dar permisos de ejecución al script de inicio
 RUN chmod +x start_services.sh
 
