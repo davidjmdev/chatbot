@@ -32,5 +32,5 @@ RUN chmod +x start_services.sh
 # Exponer los puertos necesarios (Render solo expone uno, pero útil para pruebas locales)
 EXPOSE 8000 5005 5055
 
-# Comando de inicio: script que lanza Django, Rasa y actions
-CMD ["./start_services.sh"]
+# Comando de inicio: ejecuta migraciones y luego arranca Gunicorn para Django, junto a Rasa y actions
+CMD ["bash", "-c", "python django/manage.py migrate --noinput && ./start_services.sh"]

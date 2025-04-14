@@ -25,8 +25,8 @@ RASA_PID=$!
 cd rasa && rasa run actions -p $ACTIONS_PORT &
 ACTIONS_PID=$!
 
-# Iniciar el servidor de Django (escuchando en todas las interfaces)
-cd django && python manage.py runserver 0.0.0.0:$PORT &
+# Iniciar el servidor de Django con Gunicorn (modo producción, mínimo de recursos)
+cd django && gunicorn chatbot_frontend.wsgi:application --bind 0.0.0.0:$PORT --workers 2 &
 DJANGO_PID=$!
 
 echo "Todos los servicios iniciados. Presiona Ctrl+C para detener."

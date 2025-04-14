@@ -1,6 +1,16 @@
 # Python
 __pycache__/
 .python-version
+*.pyc
+*.pyo
+
+# Django database
+/db.sqlite3
+/django/db.sqlite3
+
+# Django static/media (opcional, si no quieres subir archivos generados)
+/staticfiles/
+/media/
 
 # Rasa
 .rasa/
