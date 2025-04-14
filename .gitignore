@@ -3,6 +3,7 @@ __pycache__/
 .python-version
 *.pyc
 *.pyo
+.python-version
 
 # Django database
 /db.sqlite3
