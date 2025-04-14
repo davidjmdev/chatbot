@@ -1,18 +1,16 @@
 services:
   - type: web
     name: django-rasa-chatbot
-    runtime: python
+    env: docker
     plan: free
-    region: oregon  # Región de Oregon (EE.UU. Oeste) - Mayor disponibilidad de recursos
-    buildCommand: pip install -r requirements.txt
-    startCommand: bash start_services.sh
+    region: frankfurt  # Región de Frankfurt (Europa)
     envVars:
       - key: DEBUG
         value: "False"
       - key: PYTHON_VERSION
         value: 3.9.18
-      - key: RASA_HOST
-        value: localhost  # Como ambos servicios están en la misma instancia
+      - key: PORT
+        value: 8000
       - key: RASA_PORT
         value: 5005
       - key: ACTIONS_PORT
@@ -20,4 +18,5 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
+        value: "*"
         value: ".onrender.com,localhost,127.0.0.1" 
