@@ -14,7 +14,7 @@ cleanup() {
     echo "Deteniendo servicios..."
     kill $RASA_PID
     kill $ACTIONS_PID
-    kill $DJANGO_PID
+    kill $FLASK_PID
     exit
 }
 
@@ -41,7 +41,7 @@ while true; do
 done
 
 # Lanzar el servidor Flask (web/webserver.py) en foreground
-python3 web/webserver.py &
+python3 -W ignore web/webserver.py &
 FLASK_PID=$!
 
 echo "Todos los servicios iniciados. Presiona Ctrl+C para detener."
