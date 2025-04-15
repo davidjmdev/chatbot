@@ -16,15 +16,13 @@ WORKDIR /app
 # Copiar requirements y archivos de dependencias
 COPY requirements.txt ./
 
-# Instalar dependencias de Python
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Instalar dependencias de Python (Flask, Rasa, requests)
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir flask rasa requests
 
 # Copiar el resto del código del proyecto
 COPY . .
 
-# Ejecutar collectstatic para archivos estáticos de Django
-RUN python django/manage.py collectstatic --noinput
 
 # Dar permisos de ejecución al script de inicio
 RUN chmod +x start_services.sh
@@ -32,5 +30,5 @@ RUN chmod +x start_services.sh
 # Exponer los puertos necesarios (Render solo expone uno, pero útil para pruebas locales)
 EXPOSE 8000 5005 5055
 
-# Comando de inicio: ejecuta migraciones y luego arranca Gunicorn para Django, junto a Rasa y actions
-CMD ["bash", "-c", "python django/manage.py migrate --noinput && ./start_services.sh"]
+# Comando de inicio: lanzar start_services.sh directamente
+CMD ["./start_services.sh"]

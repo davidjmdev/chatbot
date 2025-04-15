@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Rasa Web</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6fa; margin: 0; }
+        #chat-container { max-width: 500px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 20px; }
+        #messages { height: 360px; overflow-y: auto; border: 1px solid #eee; border-radius: 6px; padding: 10px; margin-bottom: 12px; background: #fafbfc; }
+        .msg { margin: 8px 0; display: flex; }
+        .msg.user { justify-content: flex-end; }
+        .msg.bot { justify-content: flex-start; }
+        .bubble { padding: 8px 14px; border-radius: 16px; max-width: 70%; }
+        .user .bubble { background: #e3eafc; color: #234; }
+        .bot .bubble { background: #f5f5f5; color: #222; }
+        #input-area { display: flex; gap: 8px; }
+        #user-input { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
+        #send-btn { padding: 8px 18px; border: none; border-radius: 6px; background: #4a6fa5; color: #fff; cursor: pointer; }
+        #send-btn:disabled { background: #b6c8e6; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+<div id="chat-container">
+    <div id="messages"></div>
+    <form id="input-area" autocomplete="off">
+        <input id="user-input" type="text" placeholder="Escribe tu mensaje..." autofocus required />
+        <button id="send-btn" type="submit">Enviar</button>
+    </form>
+</div>
+<script>
+const RASA_URL = '/webhooks/rest/webhook'; // Proxy directo al backend Rasa
+const messagesDiv = document.getElementById('messages');
+const inputForm = document.getElementById('input-area');
+const input = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
+
+function appendMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'msg ' + sender;
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = text;
+    msgDiv.appendChild(bubble);
+    messagesDiv.appendChild(msgDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+inputForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    appendMessage(text, 'user');
+    input.value = '';
+    sendBtn.disabled = true;
+    try {
+        const res = await fetch(RASA_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sender: 'user', message: text })
+        });
+        if (!res.ok) throw new Error('Error en el servidor');
+        const data = await res.json();
+        if (data.length === 0) appendMessage('Sin respuesta del bot.', 'bot');
+        for (const msg of data) {
+            if (msg.text) appendMessage(msg.text, 'bot');
+        }
+    } catch (err) {
+        appendMessage('Error de conexión con el backend.', 'bot');
+    }
+    sendBtn.disabled = false;
+}
+</script>
+</body>
+</html>

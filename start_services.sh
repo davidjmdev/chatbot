@@ -25,9 +25,9 @@ RASA_PID=$!
 cd rasa && rasa run actions -p $ACTIONS_PORT &
 ACTIONS_PID=$!
 
-# Iniciar el servidor de Django con Gunicorn (modo producción, mínimo de recursos)
-cd django && gunicorn chatbot_frontend.wsgi:application --bind 0.0.0.0:$PORT --workers 2 &
-DJANGO_PID=$!
+# Lanzar el servidor Flask (web/webserver.py) en foreground
+python3 web/webserver.py &
+FLASK_PID=$!
 
 echo "Todos los servicios iniciados. Presiona Ctrl+C para detener."
 
