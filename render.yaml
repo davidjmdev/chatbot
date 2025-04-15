@@ -1,14 +1,12 @@
 services:
   - type: web
-    name: django-rasa-chatbot
+    name: chatbot-rasa-flask
     env: docker
     plan: free
-    region: frankfurt  # Región de Frankfurt (Europa)
+    region: frankfurt
     envVars:
       - key: DEBUG
         value: "False"
-      - key: PYTHON_VERSION
-        value: 3.9.18
       - key: PORT
         value: 8000
       - key: RASA_PORT
