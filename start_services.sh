@@ -2,6 +2,7 @@
 
 # Ocultar warnings de Python
 export PYTHONWARNINGS="ignore"
+export SQLALCHEMY_SILENCE_UBER_WARNING=1
 
 # Variables de entorno para Render
 PORT=${PORT:-8000}
@@ -27,6 +28,17 @@ RASA_PID=$!
 # Iniciar las acciones de Rasa
 cd rasa && rasa run actions -p $ACTIONS_PORT &
 ACTIONS_PID=$!
+
+# Esperar a que Rasa esté listo en el puerto 5005
+echo "Esperando a que Rasa esté listo en el puerto $RASA_PORT..."
+while true; do
+  if curl -s "http://localhost:$RASA_PORT/status" >/dev/null; then
+    echo "Rasa está listo."
+    break
+  else
+    sleep 2
+  fi
+done
 
 # Lanzar el servidor Flask (web/webserver.py) en foreground
 python3 web/webserver.py &
