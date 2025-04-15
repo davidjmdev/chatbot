@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ocultar warnings de Python
+export PYTHONWARNINGS="ignore"
+
 # Variables de entorno para Render
 PORT=${PORT:-8000}
 RASA_PORT=${RASA_PORT:-5005}
