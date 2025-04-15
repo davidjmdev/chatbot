@@ -35,12 +35,26 @@ const inputForm = document.getElementById('input-area');
 const input = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
 
-function appendMessage(text, sender) {
+function appendMessage(msg, sender) {
     const msgDiv = document.createElement('div');
     msgDiv.className = 'msg ' + sender;
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
-    bubble.textContent = text;
+    if (typeof msg === 'string') {
+        bubble.textContent = msg; // texto plano (incluye emojis)
+    } else if (msg.text) {
+        bubble.textContent = msg.text; // texto plano (incluye emojis)
+    }
+    // Si hay imagen, mostrarla debajo del texto
+    if (msg.image) {
+        const img = document.createElement('img');
+        img.src = msg.image;
+        img.alt = 'Imagen';
+        img.style.maxWidth = '180px';
+        img.style.display = 'block';
+        img.style.marginTop = '8px';
+        bubble.appendChild(img);
+    }
     msgDiv.appendChild(bubble);
     messagesDiv.appendChild(msgDiv);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -63,7 +77,7 @@ inputForm.onsubmit = async (e) => {
         const data = await res.json();
         if (data.length === 0) appendMessage('Sin respuesta del bot.', 'bot');
         for (const msg of data) {
-            if (msg.text) appendMessage(msg.text, 'bot');
+            appendMessage(msg, 'bot');
         }
     } catch (err) {
         appendMessage('Error de conexión con el backend.', 'bot');
